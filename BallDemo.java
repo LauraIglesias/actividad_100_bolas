@@ -22,8 +22,13 @@ public class BallDemo
 
     /**
      * Simulate two bouncing balls
+     * el usuario introduzca por parámetro cuántas bolas quiere que aparezcan en pantalla. 
+     * El radio y color de las bolas debe ser aleatorio. Su posicion de inicio también debe ser aleatoria,
+     * pero siempre de la mitad de la pantalla hacia la izquierda.
+     * La animación debe terminar cuando alguna bola se salga del suelo por la derecha. 
+     * @parm bolas numero de bolas que quieres que aparezcan
      */
-    public void bounce()
+    public void bounce(int bolas)
     {
         int ground = 400;   // position of the ground line
 
