@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.util.ArrayList;
 
 /**
  * Class BallDemo - a short demonstration showing animation with the 
@@ -43,10 +44,11 @@ public class BallDemo
         BouncingBall ball2 = new BouncingBall(70, 80, 20, Color.RED, ground, myCanvas);
         ball2.draw();
 
-        String nombreBolas[] = new String[bolas];
+        ArrayList <BouncingBall> arrayBolas = new ArrayList<>();//para guardar las bolas creadas
         for(int i = 0; i < bolas; i++){
-            nombreBolas[i]= "bola" + i;
-            System.out.println(nombreBolas[i]);
+            BouncingBall bola = new BouncingBall(50, 50, 16, Color.BLUE, ground, myCanvas);
+            arrayBolas.add(bola);
+            bola.draw();
         }
 
         // make them bounce
@@ -55,6 +57,7 @@ public class BallDemo
             myCanvas.wait(50);           // small delay
             ball.move();
             ball2.move();
+            
             // stop once ball has travelled a certain distance on x axis
             if(ball.getXPosition() >= 550 || ball2.getXPosition() >= 550) {
                 finished = true;
