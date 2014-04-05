@@ -1,6 +1,6 @@
 import java.awt.Color;
 import java.util.ArrayList;
-
+import java.util.Random;
 /**
  * Class BallDemo - a short demonstration showing animation with the 
  * Canvas class. 
@@ -24,8 +24,8 @@ public class BallDemo
     /**
      * Simulate two bouncing balls
      * el usuario introduzca por parámetro cuántas bolas quiere que aparezcan en pantalla. 
-     * El radio y color de las bolas debe ser aleatorio. Su posicion de inicio también debe ser aleatoria,
-     * pero siempre de la mitad de la pantalla hacia la izquierda.
+     * El radio y color de las bolas debe ser aleatorio. 
+     * Su posicion de inicio también debe ser aleatoria, pero siempre de la mitad de la pantalla hacia la izquierda.
      * La animación debe terminar cuando alguna bola se salga del suelo por la derecha. 
      * @parm bolas numero de bolas que quieres que aparezcan
      */
@@ -42,7 +42,17 @@ public class BallDemo
 
         ArrayList <BouncingBall> arrayBolas = new ArrayList<>();//para guardar las bolas creadas
         for(int i = 0; i < bolas; i++){
-            BouncingBall bola = new BouncingBall(50, 50, 16, Color.BLUE, ground, myCanvas);
+            Random aleatorio = new Random();
+            int x = aleatorio.nextInt(300);// Si lo que queremos es acotar el rango, podemos pasar el límite como parámetro del método .nextInt(valor)
+            int y = aleatorio.nextInt(250);
+            
+            int radio = aleatorio.nextInt(100);
+            
+            int r = aleatorio.nextInt(256); //2^8 bits = 256 colores gama rojo
+            int g = aleatorio.nextInt(256);//2^8 bits = 256 colores gama verde
+            int b = aleatorio.nextInt(256);//2^8 bits = 256 colores gama azul
+            
+            BouncingBall bola = new BouncingBall(x, y, radio,new Color(r,g,b), ground, myCanvas);
             arrayBolas.add(bola);
             bola.draw();
         }
