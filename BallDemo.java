@@ -39,7 +39,6 @@ public class BallDemo
         myCanvas.drawLine(50, ground, 550, ground);
 
         // crate and show the balls
-
         ArrayList <BouncingBall> arrayBolas = new ArrayList<>();//para guardar las bolas creadas
         for(int i = 0; i < bolas; i++){
             Random aleatorio = new Random();
@@ -72,5 +71,12 @@ public class BallDemo
                 finished = true;
             }*/
         }
+    }
+    /**
+     * Este método debe dibujar un rectángulo en la pantalla y tantas bolas como se indiquen como parámetro en la invocación del método
+     * @param numBolas numero de bolas que quiera crear el usuario
+     */
+    public void boxBounce(int numBolas)
+    {
     }
 }
