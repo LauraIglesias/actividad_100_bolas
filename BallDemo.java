@@ -43,6 +43,12 @@ public class BallDemo
         BouncingBall ball2 = new BouncingBall(70, 80, 20, Color.RED, ground, myCanvas);
         ball2.draw();
 
+        String nombreBolas[] = new String[bolas];
+        for(int i = 0; i < bolas; i++){
+            nombreBolas[i]= "bola" + i;
+            System.out.println(nombreBolas[i]);
+        }
+
         // make them bounce
         boolean finished =  false;
         while(!finished) {
