@@ -39,10 +39,6 @@ public class BallDemo
         myCanvas.drawLine(50, ground, 550, ground);
 
         // crate and show the balls
-        BouncingBall ball = new BouncingBall(50, 50, 16, Color.BLUE, ground, myCanvas);
-        ball.draw();
-        BouncingBall ball2 = new BouncingBall(70, 80, 20, Color.RED, ground, myCanvas);
-        ball2.draw();
 
         ArrayList <BouncingBall> arrayBolas = new ArrayList<>();//para guardar las bolas creadas
         for(int i = 0; i < bolas; i++){
@@ -55,13 +51,16 @@ public class BallDemo
         boolean finished =  false;
         while(!finished) {
             myCanvas.wait(50);           // small delay
-            ball.move();
-            ball2.move();
-            
-            // stop once ball has travelled a certain distance on x axis
-            if(ball.getXPosition() >= 550 || ball2.getXPosition() >= 550) {
-                finished = true;
+            for(BouncingBall bola : arrayBolas){
+                bola.move();
+                if(bola.getXPosition() >= 550) {
+                    finished = true;
+                }
             }
+            // stop once ball has travelled a certain distance on x axis
+           /* if(ball.getXPosition() >= 550 || ball2.getXPosition() >= 550) {
+                finished = true;
+            }*/
         }
     }
 }
