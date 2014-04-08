@@ -44,13 +44,13 @@ public class BallDemo
             Random aleatorio = new Random();
             int x = aleatorio.nextInt(300);// Si lo que queremos es acotar el rango, podemos pasar el límite como parámetro del método .nextInt(valor)
             int y = aleatorio.nextInt(250);
-            
+
             int radio = aleatorio.nextInt(100);
-            
+
             int r = aleatorio.nextInt(256); //2^8 bits = 256 colores gama rojo
             int g = aleatorio.nextInt(256);//2^8 bits = 256 colores gama verde
             int b = aleatorio.nextInt(256);//2^8 bits = 256 colores gama azul
-            
+
             BouncingBall bola = new BouncingBall(x, y, radio,new Color(r,g,b), ground, myCanvas);
             arrayBolas.add(bola);
             bola.draw();
@@ -67,16 +67,57 @@ public class BallDemo
                 }
             }
             // stop once ball has travelled a certain distance on x axis
-           /* if(ball.getXPosition() >= 550 || ball2.getXPosition() >= 550) {
-                finished = true;
+            /* if(ball.getXPosition() >= 550 || ball2.getXPosition() >= 550) {
+            finished = true;
             }*/
         }
     }
+
     /**
      * Este método debe dibujar un rectángulo en la pantalla y tantas bolas como se indiquen como parámetro en la invocación del método
+     * La posición inicial, el color y la direccion de cada bola debe fijarse de manera aleatoria.
      * @param numBolas numero de bolas que quiera crear el usuario
      */
     public void boxBounce(int numBolas)
     {
+        int ground = 480;   // position of the ground line
+        int arriba = 580;
+        int derecha = 10;
+        int izquierda = 10;
+
+        myCanvas.setVisible(true);
+
+        // draw the ground
+        myCanvas.fillRectangle(izquierda, derecha, arriba, ground);
+
+        // crate and show the balls
+        ArrayList <BoxBall> arrayBolas = new ArrayList<>();//para guardar las bolas creadas
+        for(int i = 0; i < numBolas; i++){
+            Random aleatorio = new Random();
+            int x = aleatorio.nextInt(300);// Si lo que queremos es acotar el rango, podemos pasar el límite como parámetro del método .nextInt(valor)
+            int y = aleatorio.nextInt(250);
+
+            int radio = aleatorio.nextInt(100);
+
+            int r = aleatorio.nextInt(256); //2^8 bits = 256 colores gama rojo
+            int g = aleatorio.nextInt(256);//2^8 bits = 256 colores gama verde
+            int b = aleatorio.nextInt(256);//2^8 bits = 256 colores gama azul
+
+            boolean velocidadX = aleatorio.nextBoolean();
+            boolean velocidadY = aleatorio.nextBoolean();
+
+            BoxBall bola = new BoxBall(x, y, radio,new Color(r,g,b), velocidadY, velocidadX, ground, arriba, derecha, izquierda, myCanvas);
+            arrayBolas.add(bola);
+            bola.draw();
+        }
+
+        // make them bounce
+        boolean finished =  false;
+        while(!finished) {
+            myCanvas.wait(50);           // small delay
+            for(BoxBall bola : arrayBolas){
+                bola.move();
+            }
+        }
     }
 }
