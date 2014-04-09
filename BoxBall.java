@@ -31,12 +31,12 @@ public class BoxBall
      * @param ballDiameter  the diameter (in pixels) of the ball
      * @param ballColor  the color of the ball
      * @param groundPos  the position of the ground (where the wall will bounce)
-     * @param drawingCanvas  the canvas to draw this ball on
-     * @param posArriba
-     * @param posDerecha
-     * @param posIzquierda
-     * @param velocidadX
-     * @param velocidadY
+     * @param drawingCanvas  pixeles que hay desde el principio del lienzo por arriba hasta la linea de abajo del rectangulo
+     * @param posArriba pixeles que hay desde el principio del lienzo por arriba hasta la primera linea del rectangulo(la de arriba)
+     * @param posDerecha pixeles que hay desde el principio del lienzo por la izquierda hasta la linea de la derecha del rectangulo
+     * @param posIzquierda pixeles que hay desde el principio del lienzo por la izquierda hasta la linea de la izquierda del rectangulo
+     * @param velocidadX boolean aleatorio para mover la bola en una cordenada moviendose positiva o negativa
+     * @param velocidadY boolean aleatorio para mover la bola en una cordenada moviendose positiva o negativa
      */
     public BoxBall(int xPos, int yPos, int ballDiameter, Color ballColor,boolean velocidadY, boolean velocidadX,
     int groundPos, int posArriba, int posDerecha, int posIzquierda, Canvas drawingCanvas)
@@ -51,16 +51,16 @@ public class BoxBall
         posicionIzquierda = posIzquierda;
         canvas = drawingCanvas;
         if(velocidadY){//true si la velocidad es Y
-            ySpeed = 1;
+            ySpeed = 1; // aumenta la velocidad uno en dicha cordenada
         }
         else {
-            ySpeed = -1;
+            ySpeed = -1;//disminuye la velocidad uno en dicha cordenada
         }
         if(velocidadX){//true si la velocidad es X
-            xSpeed = 1;
+            xSpeed = 1; // aumenta la velocidad uno en dicha cordenada
         }
         else {
-            xSpeed = -1;
+            xSpeed = -1;//disminuye la velocidad uno en dicha cordenada
         }
     }
 
@@ -94,13 +94,13 @@ public class BoxBall
         yPosition += ySpeed;
         xPosition += xSpeed; 
 
-        // check if it has hit the ground. Comprobar si se ha llegado al fondo
-        if((yPosition >= (groundPosition - diameter)) || (yPosition <= posicionArriba ))
+        // comprobar en y q la posicion es >= posicion del suelo - diametro(480-diametro+10(para que llegue al borde))  o  posicion es <= posicion de arriba(10)
+        if((yPosition >= (groundPosition - diameter) + 10) || (yPosition <= posicionArriba ))
         {
             ySpeed = -ySpeed;
         }
-
-        if((xPosition >= (posicionDerecha - diameter)) || (xPosition <= posicionIzquierda ))
+         // comprobar en y q la posicion es >= posicion del derecha - diametro(580-diametro+10(para que llegue al borde))  o  posicion es <= posicion de izquierda(10)
+        if((xPosition >= (posicionDerecha - diameter) + 10) || (xPosition <= posicionIzquierda ))
         {
             xSpeed = -xSpeed;
         }

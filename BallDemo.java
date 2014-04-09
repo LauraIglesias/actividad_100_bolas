@@ -24,7 +24,7 @@ public class BallDemo
     /**
      * Simulate two bouncing balls
      * el usuario introduzca por parámetro cuántas bolas quiere que aparezcan en pantalla. 
-     * El radio y color de las bolas debe ser aleatorio. 
+     * El diametro y color de las bolas debe ser aleatorio. 
      * Su posicion de inicio también debe ser aleatoria, pero siempre de la mitad de la pantalla hacia la izquierda.
      * La animación debe terminar cuando alguna bola se salga del suelo por la derecha. 
      * @parm bolas numero de bolas que quieres que aparezcan
@@ -45,13 +45,13 @@ public class BallDemo
             int x = aleatorio.nextInt(300);// Si lo que queremos es acotar el rango, podemos pasar el límite como parámetro del método .nextInt(valor)
             int y = aleatorio.nextInt(250);
 
-            int radio = aleatorio.nextInt(100);
+            int diametro = aleatorio.nextInt(100);
 
             int r = aleatorio.nextInt(256); //2^8 bits = 256 colores gama rojo
             int g = aleatorio.nextInt(256);//2^8 bits = 256 colores gama verde
             int b = aleatorio.nextInt(256);//2^8 bits = 256 colores gama azul
 
-            BouncingBall bola = new BouncingBall(x, y, radio,new Color(r,g,b), ground, myCanvas);
+            BouncingBall bola = new BouncingBall(x, y, diametro,new Color(r,g,b), ground, myCanvas);
             arrayBolas.add(bola);
             bola.draw();
         }
@@ -80,43 +80,52 @@ public class BallDemo
      */
     public void boxBounce(int numBolas)
     {
-        int ground = 480;   // position of the ground line
-        int arriba = 580;
-        int derecha = 10;
-        int izquierda = 10;
+        int ground = 480;   // pixeles que hay desde el principio del lienzo por arriba hasta la linea de abajo del rectangulo
+        int arriba = 10;//pixeles que hay desde el principio del lienzo por arriba hasta la primera linea del rectangulo(la de arriba)
+        int derecha = 580;//pixeles que hay desde el principio del lienzo por la izquierda hasta la linea de la derecha del rectangulo
+        int izquierda = 10;//pixeles que hay desde el principio del lienzo por la izquierda hasta la linea de la izquierda del rectangulo
 
         myCanvas.setVisible(true);
 
-        // draw the ground
-        myCanvas.fillRectangle(izquierda, derecha, arriba, ground);
+        // draw un rectangulo
+        myCanvas.fillRectangle(izquierda, arriba, derecha, ground);
 
-        // crate and show the balls
+        // creamos el array de bolas
         ArrayList <BoxBall> arrayBolas = new ArrayList<>();//para guardar las bolas creadas
+        //hacemos tantas bolas como nos han pasado por parametro
         for(int i = 0; i < numBolas; i++){
             Random aleatorio = new Random();
+            //cordenadas x e y donde aparece la bola recogidas de forma aleatoria
             int x = aleatorio.nextInt(300);// Si lo que queremos es acotar el rango, podemos pasar el límite como parámetro del método .nextInt(valor)
             int y = aleatorio.nextInt(250);
 
-            int radio = aleatorio.nextInt(100);
+            //diametro de la bola recogido de forma aleatoria
+            int diametro = aleatorio.nextInt(100);
 
+            //color de la bola de forma aleatoria rgb
             int r = aleatorio.nextInt(256); //2^8 bits = 256 colores gama rojo
             int g = aleatorio.nextInt(256);//2^8 bits = 256 colores gama verde
             int b = aleatorio.nextInt(256);//2^8 bits = 256 colores gama azul
 
+            //si la velocidadX es true se mueve en la x positivamente, si es false se mueve en las y negativamente - aleatoriamente
             boolean velocidadX = aleatorio.nextBoolean();
+             //si la velocidadY es true se mueve en la y positivamente, si es false se mueve en las y negativamente - aleatoriamente
             boolean velocidadY = aleatorio.nextBoolean();
 
-            BoxBall bola = new BoxBall(x, y, radio,new Color(r,g,b), velocidadY, velocidadX, ground, arriba, derecha, izquierda, myCanvas);
+            //creamos la bola
+            BoxBall bola = new BoxBall(x, y, diametro,new Color(r,g,b), velocidadY, velocidadX, ground, arriba, derecha, izquierda, myCanvas);
+            //añadida la bola al array
             arrayBolas.add(bola);
+            //dibujamos la bola
             bola.draw();
         }
 
         // make them bounce
         boolean finished =  false;
         while(!finished) {
-            myCanvas.wait(50);           // small delay
-            for(BoxBall bola : arrayBolas){
-                bola.move();
+            myCanvas.wait(30);           //velocidad de las bolas (menor numero más rapido)
+            for(BoxBall bola : arrayBolas){//recorremos el array de bolas
+                bola.move();//movemos cada bola
             }
         }
     }
